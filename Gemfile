@@ -36,8 +36,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'aws-sdk'
 
 # image compression/manipulation
-gem 'image_optim'
-gem 'image_optim_pack'
 gem 'rmagick'
 
 group :development, :test do

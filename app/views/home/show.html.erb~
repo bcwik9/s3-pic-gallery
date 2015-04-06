@@ -1,6 +1,0 @@
-<html>
-  <body>
-    <%= @pic %>
-    <%= image_tag(@pic) %>
-  </body>
-</html>

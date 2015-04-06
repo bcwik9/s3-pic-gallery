@@ -22,7 +22,7 @@ namespace :pictures do
       # get image filename
       img_name = o.object.key
 
-      puts "Processing #{img_name} #{i}/#{num_objects} (#{i.to_f/num_objects})%"
+      puts "Processing #{img_name} #{i}/#{num_objects} (#{i.to_f/num_objects*100})%"
       
       next if File.extname(img_name).empty? # skip folder objects (non images)
       # create RMagick image
