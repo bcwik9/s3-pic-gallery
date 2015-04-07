@@ -1,4 +1,17 @@
 <html>
+  <head>
+    <%= javascript_include_tag "jquery-photo-resize.js" %>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+      $("img").photoResize({
+      bottomSpacing: 15
+      });
+      });
+    </script>
+    <style type="text/css" media="screen">
+      body { text-align: center; }
+    </style>
+  </head>
   <body>
     <%= image_tag(@pic) %>
   </body>
