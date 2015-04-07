@@ -4,3 +4,4 @@
 * bundle install
 * set environment var S3_BUCKET_NAME to whatever bucket you want to process images out of
 * run rake pictures:import
+* bundle exec rails server, and you're done!
