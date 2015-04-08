@@ -1,7 +1,14 @@
 namespace :pictures do
   require 'fileutils'
+  require 'rubygems'
+  require 'zip'
   
   S3_BUCKET_NAME = ENV['S3_BUCKET_NAME'] || raise('please set environment var S3_BUCKET_NAME')
+
+  desc 'Zip up compressed images'
+  task :zip => :environment do
+    generate_zip Rails.root.join('app','assets','images', 'compressed'), Rails.root.join('test.zip')
+  end
   
   desc 'Download pictures from a S3 bucket to assets'
   task :import => :environment do
@@ -39,6 +46,9 @@ namespace :pictures do
       generate_compressed File.join(compress_dir, img_name), img
     end
 
+    # generate zip file
+    generate_zip compress_dir, Rails.root.join('app', 'assets', 'images.zip')
+
     # done!
     puts "All done!"
     puts "Total time taken was #{Time.now - start_time} seconds"
@@ -53,5 +63,20 @@ namespace :pictures do
   # download compressed image to assets
   def generate_compressed path, img
     img.write(path) { self.quality = 70 }
+  end
+
+  # zip files up so they can be downloaded all at once
+  def generate_zip folder, zip_path
+    puts File.join(folder, '*')
+    input_files = Dir.glob(File.join(folder, '*'))
+    
+    Zip::File.open(zip_path, Zip::File::CREATE) do |zipfile|
+      input_files.each do |file|
+        # Two arguments:
+        # - The name of the file as it will appear in the archive
+        # - The original file, including the path to find it
+        zipfile.add(File.basename(file), file)
+      end
+    end
   end
 end
