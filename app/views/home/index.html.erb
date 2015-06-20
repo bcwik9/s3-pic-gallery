@@ -6,8 +6,8 @@
       <h1>Picture Gallery</h1>
     </div>
     <div id="pictures" class="text-center container">
-      <% @pics.each do |thumbnail, compressed| %>
-      <%= link_to image_tag(thumbnail), compressed %>
+      <% @pics.keys.sort.each do |k| %>
+      <%= link_to image_tag(k), @pics[k] %>
       <% end %>
     </div>
   </body>
